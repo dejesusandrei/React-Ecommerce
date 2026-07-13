@@ -23,20 +23,20 @@ export function Home(){
 						{/* Search Bar */}
 						<div className='flex grow max-w-3xl'>
 							<input className="bg-white grow w-0 rounded-l-lg border-0 text-[16px] h-9.75 font-roboto pl-4 placeholder-gray-500 focus:outline-0" type="text" placeholder="Search" />
-							<button className='bg-white w-11.25 shrink-0 rounded-r-lg cursor-pointer'>
-								<img className='h-4.5' src={search} alt="Search" />
+							<button className='bg-white w-11.25 shrink-0 rounded-r-lg cursor-pointer flex justify-center items-center'>
+								<img className='h-4.5 mr-2' src={search} alt="Search" />
 							</button>
 						</div>
 
 						{/* Cart */}
-						<div className="shrink-0 flex justify-end">
-							<a className="text-white flex items-center px-3 header-link" href="orders.html">
+						<div className="shrink-0 flex justify-end gap-2">
+							<a className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" href="orders.html">
 								<span className="block text-[15px] font-semibold">Orders</span>
 							</a>
 
-							<a className="text-white flex items-center relative header-link" href="checkout.html">
+							<a className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" href="checkout.html">
 								<img className="w-9" src={cart} />
-								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute -top-px right-11.25">3</div>
+								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">3</div>
 								<div className="ml-1.25">Cart</div>
 							</a>
 						</div>
@@ -65,7 +65,7 @@ export function Home(){
 								<div className="font-semibold mb-3">$10.90</div>
 
 								<div className="mb-4">
-									<select className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#727272] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>
+									<select className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#adadad] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -106,7 +106,7 @@ export function Home(){
 								<div className="font-semibold mb-3">$20.95</div>
 
 								<div className="mb-4">
-									<select className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#727272] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>
+									<select className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#adadad] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
