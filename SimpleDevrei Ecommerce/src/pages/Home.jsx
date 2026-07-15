@@ -1,4 +1,5 @@
 import '../index.css'
+import { Link } from 'react-router-dom'
 import SimpleDevreiLogoLarge from '../assets/SimpleDevreiLogoLarge.png'
 import search from '../assets/search.png'
 import cart from '../assets/cart-icon.png'
@@ -6,18 +7,20 @@ import cart from '../assets/cart-icon.png'
 export function Home(){
 	return (
 		<>
+			<title>Home</title>
+			
 			<header className="bg-[rgb(8,79,45)] w-full fixed top-0 z-5">
 				<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between items-center gap-4 h-18">
 						{/* Container Logo */}
 						<div className=" flex justify-start items-center shrink-0">
-							<a href="index.html" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
+							<Link to="/" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
 								<img className="w-14 cursor-pointer" src={SimpleDevreiLogoLarge} alt="SimpleDevrei" />
 								<span className='text-white'>SimpleDevrei</span>
-							</a>
-							<a href="index.html" className="hidden md:block lg:hidden">
+							</Link>
+							<Link to="/" className="hidden md:block lg:hidden">
 								<img className="w-12 cursor-pointer" src={SimpleDevreiLogoLarge} alt="SimpleDevrei" />
-							</a>
+							</Link>
 						</div>
 
 						{/* Search Bar */}
@@ -30,15 +33,15 @@ export function Home(){
 
 						{/* Cart */}
 						<div className="shrink-0 flex justify-end gap-2">
-							<a className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" href="orders.html">
+							<Link className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" to="orders">
 								<span className="block text-[15px] font-semibold">Orders</span>
-							</a>
+							</Link>
 
-							<a className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" href="checkout.html">
+							<Link className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="checkout">
 								<img className="w-9" src={cart} />
 								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">3</div>
 								<div className="ml-1.25">Cart</div>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
