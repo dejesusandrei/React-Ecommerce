@@ -13,11 +13,11 @@ export function CheckoutPage(){
 						<div className='flex justify-between font-roboto items-center h-18'>
 							{/* Container Logo */}
 							<div className=" flex justify-start items-center shrink-0">
-								<Link href="index.html" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
+								<Link to="/" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
 									<img className="w-13 cursor-pointer" src={SimpleDevreiLogoGreen} alt="SimpleDevrei" />
 									<span className='text-[rgb(8,79,45)]'>SimpleDevrei</span>
 								</Link>
-								<Link href="index.html" className="block lg:hidden">
+								<Link to="/" className="block lg:hidden">
 									<img className="w-13 cursor-pointer" src={SimpleDevreiLogoGreen} alt="SimpleDevrei" />
 								</Link>
 							</div>

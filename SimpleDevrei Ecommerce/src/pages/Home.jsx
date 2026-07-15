@@ -33,11 +33,11 @@ export function Home(){
 
 						{/* Cart */}
 						<div className="shrink-0 flex justify-end gap-2">
-							<Link className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" to="orders">
+							<Link className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" to="Orders">
 								<span className="block text-[15px] font-semibold">Orders</span>
 							</Link>
 
-							<Link className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="checkout">
+							<Link className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="Checkout">
 								<img className="w-9" src={cart} />
 								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">3</div>
 								<div className="ml-1.25">Cart</div>
