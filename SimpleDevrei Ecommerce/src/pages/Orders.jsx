@@ -109,9 +109,6 @@ export function Orders(){
 											</div>
 
 										</div>
-
-
-
 									</div> {/* Order Container */}
 
 								</div>

@@ -49,7 +49,7 @@ export function Tracking(){
 
 				<main className='mt-25'>
 					<section className='w-full'>
-						<div className='tracking-page  max-w-[850px]: lg:max-w-7xl font-roboto mx-auto px-4 md:px-6 lg:px-8'>
+						<div className='tracking-page  max-w-[850px]: lg:max-w-6xl font-roboto mx-auto px-4 md:px-6 lg:px-8'>
 							<div className="order-tracking">
 								<Link className="back-to-orders-link link-primary inline-block mb-8 text-[17px] underline decoration-[rgb(25,135,84)] text-[rgb(25,135,84)] hover:opacity-[0.75]" to="/Orders">View all orders</Link>
 								<div className="delivery-date">Arriving on Monday, June 13</div>
