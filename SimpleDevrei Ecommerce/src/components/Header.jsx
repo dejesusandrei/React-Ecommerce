@@ -1,5 +1,5 @@
 import '../index.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import SimpleDevreiLogoLarge from '../assets/SimpleDevreiLogoLarge.png'
 import search from '../assets/search.png'
 import cart from '../assets/cart-icon.png'
@@ -12,13 +12,13 @@ export function Header(){
 					<div className="flex justify-between items-center gap-4 h-18">
 						{/* Container Logo */}
 						<div className=" flex justify-start items-center shrink-0">
-							<Link to="/" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
+							<NavLink to="/" className="hidden lg:flex items-center font-arial text-[21px] font-medium">
 								<img className="w-14 cursor-pointer" src={SimpleDevreiLogoLarge} alt="SimpleDevrei" />
 								<span className='text-white'>SimpleDevrei</span>
-							</Link>
-							<Link to="/" className="hidden md:block lg:hidden">
+							</NavLink>
+							<NavLink to="/" className="hidden md:block lg:hidden">
 								<img className="w-12 cursor-pointer" src={SimpleDevreiLogoLarge} alt="SimpleDevrei" />
-							</Link>
+							</NavLink>
 						</div>
 
 						{/* Search Bar */}
@@ -31,15 +31,16 @@ export function Header(){
 
 						{/* Cart */}
 						<div className="shrink-0 flex justify-end gap-2">
-							<Link className="text-white flex items-center border border-transparent px-3 py-2 header-link hover:border-white" to="/Orders">
+							<NavLink className={({ isActive }) => `text-white flex items-center border-b px-3 header-link hover:border-white ${ isActive ? 'border-white' : 'border-transparent'}`}
+								to="/Orders">
 								<span className="block text-[15px] font-semibold">Orders</span>
-							</Link>
+							</NavLink>
 
-							<Link className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="/Checkout">
+							<NavLink className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="/Checkout">
 								<img className="w-9" src={cart} />
 								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">3</div>
 								<div className="ml-1.25">Cart</div>
-							</Link>
+							</NavLink>
 						</div>
 					</div>
 				</div>
