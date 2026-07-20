@@ -1,4 +1,4 @@
-import { products } from '../../data/products'
+import { products } from '../data/products'
 import {FormatCurrency}  from '../utils/money'
 
 export function Products(){
