@@ -1,10 +1,28 @@
+import { useState, useEffect } from 'react'
 import { products } from '../data/products'
 import {FormatCurrency}  from '../utils/money'
 
 export function Products(){
+	const [product, setProduct] = useState(products);
+
+	useEffect(() =>{
+		async function loadProduct(){
+			try {
+				const res = await fetch('http://localhost:3000/api/products');
+				if(res.ok){
+					const freshProduct = await res.json();
+					setProduct(freshProduct);
+				}
+			} catch (error) {
+				console.error('Failed to update the products: ', error);
+			}
+		}
+		loadProduct();
+	}, []);
+
 	return(
 		<div className='grid grid-cols-1 font-roboto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-      {products.map(({id, image, name, priceCents, rating}) => {
+      {product.map(({id, image, name, priceCents, rating}) => {
         return (
           <div key={id} className="flex flex-col px-6.25 pt-8 pb-6.25 sm:border-r border-b border-[rgb(240,240,240)]">
 						<div className="flex items-center justify-center h-45 mb-5">
