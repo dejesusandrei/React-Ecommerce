@@ -13,14 +13,12 @@ export function Home(){
 			async function loadProduct(){
 				try {
 					// Promise All: sabay irequest ng browser anf two API sa backend
-	
 					const [resProduct, resCartItem] = await Promise.all(
 						[
 							axios.get('http://localhost:3000/api/products'),
 							axios.get('http://localhost:3000/api/cart-items')
 						]
 					);
-
 					setProducts(resProduct.data);
 					setCart(resCartItem.data);
 				} catch (error) {
