@@ -7,7 +7,6 @@ function CartItem({ item, deliveryOptions }) {
   const { productId, quantity, product, deliveryOptionId } = item;
   
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
-
   const selectedOption = deliveryOptions.find(opt => opt.id === selectedOptionId) || deliveryOptions[0];
 
   return (
@@ -69,15 +68,20 @@ function CartItem({ item, deliveryOptions }) {
   );
 }
 
-// 2. Parent Cart component
+
 export function Cart({ cart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
 
   useEffect(() => {
     async function loadDeliveryOptions() {
       try {
-        const res = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
-        setDeliveryOptions(res.data);
+        const [resDeliveryOption, resPaymentSummary] = await Promise.all([
+          axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
+          axios.get('/api/payment-summary')
+        ]); 
+        setDeliveryOptions(resDeliveryOption.data);
+        setPaymentSummary(resPaymentSummary.data);
       } catch (error) {
         console.error('Failed to update the delivery options: ', error);
       }
@@ -88,7 +92,7 @@ export function Cart({ cart }) {
   return (
     <div className="order-summary">
       {cart.map((item) => (
-        <CartItem key={item.productId} item={item} deliveryOptions={deliveryOptions} />
+        <CartItem key={item.productId} item={item} deliveryOptions={deliveryOptions} paymentSummary={paymentSummary} />
       ))}
     </div>
   );
