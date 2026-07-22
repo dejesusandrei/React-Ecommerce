@@ -5,28 +5,7 @@ import { Products } from '../components/Product';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-export function Home(){
-	const [products, setProducts] = useState([]);
-		const [cart, setCart] = useState([]);
-	
-		useEffect(() =>{
-			async function loadProduct(){
-				try {
-					// Promise All: sabay irequest ng browser anf two API sa backend
-					const [resProduct, resCartItem] = await Promise.all(
-						[
-							axios.get('/api/products'),
-							axios.get('/api/cart-items')
-						]
-					);
-					setProducts(resProduct.data);
-					setCart(resCartItem.data);
-				} catch (error) {
-					console.error('Failed to update the products: ', error);
-				}
-			}
-			loadProduct();
-		}, []);
+export function Home({cart, products}){
 
 	return (
 		<>

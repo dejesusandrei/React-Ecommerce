@@ -1,12 +1,12 @@
 import '../../index.css'
 import { CheckoutHeader } from './CheckoutHeader'
 
-export function Checkout(){
+export function Checkout({cart}){
 	return(
 			<>
 				<title>Checkout</title>
 
-				<CheckoutHeader />
+				<CheckoutHeader cart={cart}/>
 
 				<main className='mt-36 px-4'>
 					<section className='w-full'>
@@ -49,7 +49,7 @@ export function Checkout(){
 												<div className='font-bold mb-3'>Choose a delivery option:</div>
 												{/* Delivery Option */}
 												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5' type="radio" name='deliery-option-1'/>
+													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1' defaultChecked/>
 													<div>
 														<div className="font-medium mb-1">
 															Tuesday, June 21
@@ -60,7 +60,7 @@ export function Checkout(){
 													</div>
 												</div>
 												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5' type="radio" name='deliery-option-1'/>
+													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
 													<div>
 														<div className="font-medium mb-1">
 															Wednesday, June 15
@@ -71,7 +71,7 @@ export function Checkout(){
 													</div>
 												</div>
 												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5' type="radio" name='deliery-option-1'/>
+													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
 													<div>
 														<div className="font-medium mb-1">
 															Monday, June 13

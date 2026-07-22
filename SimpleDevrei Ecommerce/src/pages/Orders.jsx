@@ -2,12 +2,12 @@ import '../index.css'
 import { Link } from 'react-router-dom'
 import { Header } from '../components/Header' 
 
-export function Orders(){
+export function Orders({cart}){
     return(
         <>
           <title>Orders</title>
 
-          <Header />
+          <Header cart={cart}/>
 
 					<main className='mt-25'>
 						<section className='w-full'>

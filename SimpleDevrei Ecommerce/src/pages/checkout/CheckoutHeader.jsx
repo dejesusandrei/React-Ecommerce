@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import SimpleDevreiLogoGreen from '../../assets/SimpleDevreiLogoGreen.png'
 
-
-export function CheckoutHeader(){
+export function CheckoutHeader({cart}){
+	const totalQuantity = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
   return(
 		<>
 			<header className="w-full fixed top-0 z-5 bg-white">
@@ -21,7 +21,7 @@ export function CheckoutHeader(){
 
 						{/* Checkout */}
 						<div className='flex justify-center text-[22px] font-medium grow shrink-0 text-center'>
-							Checkout (<NavLink to="/Checkout" className='text-[rgb(25,135,84)] cursor-pointer'>3 items</NavLink>)
+							Checkout (<NavLink to="/Checkout" className='text-[rgb(25,135,84)] cursor-pointer'>{totalQuantity} items</NavLink>)
 						</div>
 
 						<div className='text-right flex items-center justify-end shrink-0 cursor-pointer'>
