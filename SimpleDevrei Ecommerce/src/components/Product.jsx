@@ -1,21 +1,6 @@
-import { useState, useEffect } from 'react'
 import {FormatCurrency}  from '../utils/money'
-import axios from 'axios';
 
-export function Products(){
-	const [products, setProducts] = useState([]);
-
-	useEffect(() =>{
-		async function loadProduct(){
-			try {
-				const res = await axios.get('http://localhost:3000/api/products');
-				setProducts(res.data);
-			} catch (error) {
-				console.error('Failed to update the products: ', error);
-			}
-		}
-		loadProduct();
-	}, []);
+export function Products({products}){
 
 	return(
 		<div className='grid grid-cols-1 font-roboto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>

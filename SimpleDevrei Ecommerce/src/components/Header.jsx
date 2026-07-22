@@ -2,9 +2,11 @@ import '../index.css'
 import { NavLink } from 'react-router-dom'
 import SimpleDevreiLogoLarge from '../assets/SimpleDevreiLogoLarge.png'
 import search from '../assets/search.png'
-import cart from '../assets/cart-icon.png'
+import cartIcon from '../assets/cart-icon.png'
 
-export function Header(){
+export function Header({cart}){
+	const totalQuantity = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+	
 	return(
 		<>
 			<header className="bg-[rgb(8,79,45)] w-full fixed top-0 z-5">
@@ -37,8 +39,8 @@ export function Header(){
 							</NavLink>
 
 							<NavLink className="text-white flex items-center px-3 py-2 relative border border-transparent hover:border-white" to="/Checkout">
-								<img className="w-9" src={cart} />
-								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">3</div>
+								<img className="w-9" src={cartIcon} />
+								<div className="text-[14px] text-center font-semibold text-[rgb(8,79,45)] absolute top-1.75 right-14.5">{totalQuantity}</div>
 								<div className="ml-1.25">Cart</div>
 							</NavLink>
 						</div>
