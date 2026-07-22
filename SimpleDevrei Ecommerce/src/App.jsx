@@ -18,7 +18,7 @@ function App(){
 				const [resProduct, resCartItem] = await Promise.all(
 					[
 						axios.get('/api/products'),
-						axios.get('/api/cart-items')
+						axios.get('/api/cart-items?expand=product')
 					]
 				);
 				setProducts(resProduct.data);

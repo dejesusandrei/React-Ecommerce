@@ -18,7 +18,7 @@ export function Products({products}){
 							<div className="text-[rgb(25,135,84)] font-medium cursor-pointer mt-1">{rating.count}</div>
 						</div>
 
-						<div className="font-semibold mb-3">${FormatCurrency(priceCents)}</div>
+						<div className="font-semibold mb-3">{FormatCurrency(priceCents)}</div>
 
 						<div className="mb-4">
 							<select className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#adadad] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>

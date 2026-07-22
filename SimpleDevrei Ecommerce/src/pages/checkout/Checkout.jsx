@@ -1,5 +1,6 @@
 import '../../index.css'
 import { CheckoutHeader } from './CheckoutHeader'
+import { Cart } from '../../components/Cart';
 
 export function Checkout({cart}){
 	return(
@@ -14,77 +15,13 @@ export function Checkout({cart}){
 							<div className='font-bold text-[22px] mb-5'>Review your order</div>
 							{/* Checkout Grid */}
 							<div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
-								{/* Order Summary */}
-								<div>
-									<div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
-										{/* Delivery Date */}
-										<div className="text-[rgb(25,135,84)] font-bold mt-1.5 mb-6 text-[19px]">
-											Delivery date: Tuesday, June 21
-										</div>
-										{/* Cart Item Grid */}
-										<div className='grid grid-cols-[100px_1fr] lg:grid-cols-[100px_1fr_1fr] gap-6'>
-											<img className='max-w-full max-h-32 mx-auto' src="../../public/images/products/athletic-cotton-socks-6-pairs.jpg" alt="Socks" />
-											
-											<div className='cart-item-details'>
-												<div className="font-bold mb-2 ">
-													Black and Gray Athletic Cotton Socks - 6 Pairs
-												</div>
-												<div className="font-bold mb-2">
-													$10.90
-												</div>
-												<div className="product-quantity">
-													<span>
-														Quantity: <span className="quantity-label">2</span>
-													</span>
-													<span className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
-														Update
-													</span>
-													<span className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
-														Delete
-													</span>
-												</div>
-											</div>
 
-											<div className='delivery-options max-[1024px]:col-[1/span_2]'>
-												<div className='font-bold mb-3'>Choose a delivery option:</div>
-												{/* Delivery Option */}
-												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1' defaultChecked/>
-													<div>
-														<div className="font-medium mb-1">
-															Tuesday, June 21
-														</div>
-														<div className="text-[rgb(120,120,120)] text-[15px]">
-															FREE Shipping
-														</div>
-													</div>
-												</div>
-												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
-													<div>
-														<div className="font-medium mb-1">
-															Wednesday, June 15
-														</div>
-														<div className="text-[rgb(120,120,120)] text-[15px]">
-															$4.99 - Shipping
-														</div>
-													</div>
-												</div>
-												<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
-													<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
-													<div>
-														<div className="font-medium mb-1">
-															Monday, June 13
-														</div>
-														<div className="text-[rgb(120,120,120)] text-[15px]">
-															$9.99 - Shipping
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<Cart cart={cart}/>
+
+
+
+								
+
 
 
 									{/* Payment Summary */}
@@ -128,3 +65,75 @@ export function Checkout({cart}){
 			</>
 	);
 }
+
+								// <div className='order-summary'>
+								// 	<div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
+								// 		{/* Delivery Date */}
+								// 		<div className="text-[rgb(25,135,84)] font-bold mt-1.5 mb-6 text-[19px]">
+								// 			Delivery date: Tuesday, June 21
+								// 		</div>
+								// 		{/* Cart Item Grid */}
+								// 		<div className='grid grid-cols-[100px_1fr] lg:grid-cols-[100px_1fr_1fr] gap-6'>
+								// 			<img className='max-w-full max-h-32 mx-auto' src="../../public/images/products/athletic-cotton-socks-6-pairs.jpg" alt="Socks" />
+											
+								// 			<div className='cart-item-details'>
+								// 				<div className="font-bold mb-2 ">
+								// 					Black and Gray Athletic Cotton Socks - 6 Pairs
+								// 				</div>
+								// 				<div className="font-bold mb-2">
+								// 					$10.90
+								// 				</div>
+								// 				<div className="product-quantity">
+								// 					<span>
+								// 						Quantity: <span className="quantity-label">2</span>
+								// 					</span>
+								// 					<span className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+								// 						Update
+								// 					</span>
+								// 					<span className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+								// 						Delete
+								// 					</span>
+								// 				</div>
+								// 			</div>
+
+								// 			<div className='delivery-options max-[1024px]:col-[1/span_2]'>
+								// 				<div className='font-bold mb-3'>Choose a delivery option:</div>
+								// 				{/* Delivery Option */}
+								// 				<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
+								// 					<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1' defaultChecked/>
+								// 					<div>
+								// 						<div className="font-medium mb-1">
+								// 							Tuesday, June 21
+								// 						</div>
+								// 						<div className="text-[rgb(120,120,120)] text-[15px]">
+								// 							FREE Shipping
+								// 						</div>
+								// 					</div>
+								// 				</div>
+								// 				<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
+								// 					<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
+								// 					<div>
+								// 						<div className="font-medium mb-1">
+								// 							Wednesday, June 15
+								// 						</div>
+								// 						<div className="text-[rgb(120,120,120)] text-[15px]">
+								// 							$4.99 - Shipping
+								// 						</div>
+								// 					</div>
+								// 				</div>
+								// 				<div className='grid grid-cols-[26px_1fr] mb-3 cursor-pointer'>
+								// 					<input className='mt-0.5 mr-1.5 cursor-pointer' type="radio" name='deliery-option-1'/>
+								// 					<div>
+								// 						<div className="font-medium mb-1">
+								// 							Monday, June 13
+								// 						</div>
+								// 						<div className="text-[rgb(120,120,120)] text-[15px]">
+								// 							$9.99 - Shipping
+								// 						</div>
+								// 					</div>
+								// 				</div>
+								// 			</div>
+								// 		</div>
+								// 	</div>
+									
+								// </div>
