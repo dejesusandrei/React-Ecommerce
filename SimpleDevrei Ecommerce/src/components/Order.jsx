@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { FormatDay } from "../utils/day"
 import axios from 'axios'
 
-
 function OrderList({orders}){
 	return(
 		<>
@@ -68,7 +67,6 @@ function OrderList({orders}){
 									</Fragment>
 								);
 							})}
-
 						</div>
 					</div>
 				);
