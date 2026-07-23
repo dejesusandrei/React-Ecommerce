@@ -1,6 +1,6 @@
 import { FormatCurrency } from "../utils/money"
 import { useState, useEffect } from 'react'
-import { FormatDay } from "../utils/day"
+import { FormatDate } from "../utils/day"
 import axios from 'axios'
 
 function OrderSummary({ item, deliveryOptions }) {
@@ -13,7 +13,7 @@ function OrderSummary({ item, deliveryOptions }) {
     <div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
       {/* Dynamic Delivery Date Header */}
       <div className="text-[rgb(25,135,84)] font-bold mt-1.5 mb-6 text-[19px]">
-        Delivery date: {selectedOption ? FormatDay(selectedOption.estimatedDeliveryTimeMs) : 'Loading...'}
+        Delivery date: {selectedOption ? FormatDate(selectedOption.estimatedDeliveryTimeMs) : 'Loading...'}
       </div>
 
       {/* Cart Item Grid */}
@@ -53,7 +53,7 @@ function OrderSummary({ item, deliveryOptions }) {
                 />
                 <div>
                   <div className="font-medium mb-1">
-                    {FormatDay(estimatedDeliveryTimeMs)}
+                    {FormatDate(estimatedDeliveryTimeMs)}
                   </div>
                   <div className="text-[rgb(120,120,120)] text-[15px]">
                     {priceString}
