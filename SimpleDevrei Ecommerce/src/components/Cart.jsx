@@ -1,9 +1,9 @@
-import { FormatCurrency } from "../utils/money";
+import { FormatCurrency } from "../utils/money"
 import { useState, useEffect } from 'react'
-import { FormatDay } from "../utils/day";
-import axios from 'axios';
+import { FormatDay } from "../utils/day"
+import axios from 'axios'
 
-function CartItem({ item, deliveryOptions }) {
+function OrderSummary({ item, deliveryOptions }) {
   const { productId, quantity, product, deliveryOptionId } = item;
   
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
@@ -68,6 +68,48 @@ function CartItem({ item, deliveryOptions }) {
   );
 }
 
+function PaymentSummary({paymentSummary}){
+
+  return(
+    <div className='border border-[rgb(222,222,222)] max-[1024px]:row-start-1 max-[1024px]:mb-3 rounded-sm p-5'>
+      <div className="font-bold text-[18px] mb-3">Payment Summary</div>
+      
+      {paymentSummary && (
+        <>
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+            <div>Items ({paymentSummary.totalItems}):</div>
+            <div className="text-right">{FormatCurrency(paymentSummary.productCostCents)}</div>
+          </div>
+
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+            <div>Shipping &amp; handling:</div>
+            <div className="text-right">{FormatCurrency(paymentSummary.shippingCostCents)}</div>
+          </div>
+
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+            <div>Total before tax:</div>
+            <div className="text-right border-t border-t-[rgb(222,222,222)]">{FormatCurrency(paymentSummary.totalCostBeforeTaxCents)}</div>
+          </div>
+
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+            <div>Estimated tax (10%):</div>
+            <div className="text-right">{FormatCurrency(paymentSummary.taxCents)}</div>
+          </div>
+
+          <div className="grid grid-cols-[1fr_auto] text-[rgb(25,135,84)] font-bold text-[18px] pt-4.5 mb-3 border-t border-t-[rgb(222,222,222)]">
+            <div>Order total:</div>
+            <div className="text-right">{FormatCurrency(paymentSummary.totalCostCents)}</div>
+          </div>
+
+          <button className="w-full text-[15px] p-1.75 mt-2 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
+            Place your order
+          </button>
+        </>
+      )}
+      
+    </div>
+  );
+}
 
 export function Cart({ cart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
@@ -90,10 +132,13 @@ export function Cart({ cart }) {
   }, []);
 
   return (
-    <div className="order-summary">
-      {cart.map((item) => (
-        <CartItem key={item.productId} item={item} deliveryOptions={deliveryOptions} paymentSummary={paymentSummary} />
-      ))}
+    <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
+      <div className="order-summary">
+        {cart.map((item) => (
+            <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} />
+        ))}
+      </div>
+        <PaymentSummary paymentSummary={paymentSummary} />
     </div>
   );
 }

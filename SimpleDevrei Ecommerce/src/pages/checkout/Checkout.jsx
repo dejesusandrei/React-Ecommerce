@@ -13,52 +13,7 @@ export function Checkout({cart}){
 					<section className='w-full'>
 						<div className='max-w-125 lg:max-w-7xl  mx-auto font-roboto px-4 md:px-6 lg:px-8'>
 							<div className='font-bold text-[22px] mb-5'>Review your order</div>
-							{/* Checkout Grid */}
-							<div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
-
-								<Cart cart={cart}/>
-
-
-
-								
-
-
-
-									{/* Payment Summary */}
-									<div className='border border-[rgb(222,222,222)] max-[1024px]:row-start-1 max-[1024px]:mb-3 rounded-sm p-5'>
-										<div className="font-bold text-[18px] mb-3">Payment Summary</div>
-										
-										<div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
-											<div>Items (3):</div>
-											<div className="text-right">$42.75</div>
-										</div>
-
-										<div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
-											<div>Shipping &amp; handling:</div>
-											<div className="text-right">$4.99</div>
-										</div>
-
-										<div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
-											<div>Total before tax:</div>
-											<div className="text-right border-t border-t-[rgb(222,222,222)]">$4.99</div>
-										</div>
-
-										<div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
-											<div>Estimated tax (10%):</div>
-											<div className="text-right">$4.77</div>
-										</div>
-
-										<div className="grid grid-cols-[1fr_auto] text-[rgb(25,135,84)] font-bold text-[18px] pt-4.5 mb-3 border-t border-t-[rgb(222,222,222)]">
-											<div>Order total:</div>
-											<div className="text-right">$108.77</div>
-										</div>
-
-										<button className="w-full text-[15px] p-1.75 mt-2 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
-											Place your order
-										</button>
-									</div>
-							</div>
-
+							<Cart cart={cart}/>
 						</div>
 					</section>
 				</main>
