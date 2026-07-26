@@ -31,13 +31,13 @@ function App(){
 	}, []);
 
   return(
-      <Routes>
-        <Route index element={<Home cart={cart} products={products}/>}/>
-        <Route path='Checkout' element={<Checkout cart={cart}/>}/>
-        <Route path='Orders' element={<Orders cart={cart}/>}/>
-        <Route path='Tracking' element={<Tracking />}/>
-        <Route path='*' element={<NotFound />}/>
-      </Routes> 
+		<Routes>
+			<Route index element={<Home cart={cart} products={products}/>}/>
+			<Route path='Checkout' element={<Checkout cart={cart}/>}/>
+			<Route path='Orders' element={<Orders cart={cart}/>}/>
+			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart}/>}/>
+			<Route path='*' element={<NotFound cart={cart}/>}/>
+		</Routes> 
   );
 }
 export default App

@@ -140,7 +140,7 @@ export function Cart({ cart }) {
     <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
       <div className="order-summary">
         {cart.map((item) => (
-            <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} />
+          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} />
         ))}
       </div>
         <PaymentSummary paymentSummary={paymentSummary} />

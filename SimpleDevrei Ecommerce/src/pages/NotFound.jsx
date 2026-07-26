@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom'
 import PageNotFoundImg from '../assets/web-maintenance.png'
 import '../index.css'
 
-export function NotFound(){
+export function NotFound({cart}){
   return(
       <>
         <title>404 Page Not Found</title>
         <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
 
-        <Header />
+        <Header cart={cart}/>
 
         <main className="mt-18">
           <section className="w-full">
