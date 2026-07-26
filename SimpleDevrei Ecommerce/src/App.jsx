@@ -34,10 +34,10 @@ function App(){
   return(
 		<Routes>
 			<Route index element={<Home cart={cart} products={products} loadCart={loadCart}/>}/>
-			<Route path='Checkout' element={<Checkout cart={cart}/>} loadCart={loadCart}/>
-			<Route path='Orders' element={<Orders cart={cart}/>} loadCart={loadCart}/>
-			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart}/>} loadCart={loadCart}/>
-			<Route path='*' element={<NotFound cart={cart}/>} loadCart={loadCart}/>
+			<Route path='Checkout' element={<Checkout cart={cart} loadCart={loadCart}/>}/>
+			<Route path='Orders' element={<Orders cart={cart} loadCart={loadCart}/>}/>
+			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart} loadCart={loadCart}/>}/>
+			<Route path='*' element={<NotFound cart={cart} loadCart={loadCart}/>}/>
 		</Routes> 
   );
 }

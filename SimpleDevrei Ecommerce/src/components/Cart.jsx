@@ -8,16 +8,15 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
   const selectedOption = deliveryOptions.find(opt => opt.id === selectedOptionId) || deliveryOptions[0];
 
-  // async function deleteCart(productId){
-	// 	try {
-	// 		await axios.delete('/api/cart-items', product);
-
-	// 		loadCart();
-	// 	} catch (error) {
-	// 		console.error('Failed to add to cart: ', error);
-	// 	}
-	// }
-
+  async function deleteCart(){
+    try {
+      await axios.delete(`/api/cart-items/${productId}`);
+      if (typeof loadCart === 'function') await loadCart();
+    } catch (error) {
+      console.error('Failed to add to cart: ', error);
+    }
+  }
+  
   return (
     <div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
       {/* Dynamic Delivery Date Header */}
@@ -39,7 +38,7 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
             <span className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Update
             </span>
-            <span  className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+            <span onClick={deleteCart} className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Delete
             </span>
           </div>
@@ -52,7 +51,6 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
 }
 
 function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelectedOptionId, loadCart}){
-
   async function updateDeliveryOption(optionId){
     try {
       setSelectedOptionId(optionId);
@@ -78,7 +76,7 @@ function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelec
               type="radio" 
               name={`delivery-option-${productId}`} 
               checked={optionId === selectedOptionId}
-              onChange={() => updateDeliveryOption(optionId)} // Updates state on click
+              onChange={() => {}} // Updates state on click
             />
             <div>
               <div className="date font-medium mb-1">
@@ -157,18 +155,14 @@ export function Cart({ cart, loadCart }) {
 
   useEffect(() => {
     loadData();
+    if (typeof loadCart === 'function') loadCart();
   }, [cart]);
-
-  async function handleReload(){
-    if (typeof loadCart === 'function') await loadCart();
-    await loadData();
-  }
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
       <div className="order-summary">
         {cart.map((item) => (
-          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={handleReload}/>
+          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={loadCart}/>
         ))}
       </div>
         <PaymentSummary paymentSummary={paymentSummary} />
