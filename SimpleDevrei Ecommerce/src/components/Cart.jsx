@@ -5,7 +5,6 @@ import axios from 'axios'
 
 function OrderSummary({ item, deliveryOptions }) {
   const { productId, quantity, product, deliveryOptionId } = item;
-  
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
   const selectedOption = deliveryOptions.find(opt => opt.id === selectedOptionId) || deliveryOptions[0];
 
@@ -36,7 +35,15 @@ function OrderSummary({ item, deliveryOptions }) {
           </div>
         </div>
 
-        <div className='delivery-options max-[1024px]:col-[1/span_2]'>
+        <DeliveryOptions deliveryOptions={deliveryOptions} productId={productId} selectedOptionId={selectedOptionId} setSelectedOptionId={setSelectedOptionId}/>
+      </div>
+    </div>
+  );
+}
+
+function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelectedOptionId}){
+  return(
+    <div className='delivery-options max-[1024px]:col-[1/span_2]'>
           <div className='font-bold mb-3'>Choose a delivery option:</div>
 
           {deliveryOptions.map(({ id: optionId, priceCents, estimatedDeliveryTimeMs }) => {
@@ -63,8 +70,6 @@ function OrderSummary({ item, deliveryOptions }) {
             );
           })}
         </div>
-      </div>
-    </div>
   );
 }
 
