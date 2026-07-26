@@ -1,6 +1,9 @@
 import { FormatCurrency } from "../utils/money"
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import { FormatDate } from "../utils/day"
+import { NavLink } from 'react-router-dom'
+
 import axios from 'axios'
 
 function OrderSummary({ item, deliveryOptions, loadCart}) {
@@ -13,7 +16,7 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
       await axios.delete(`/api/cart-items/${productId}`);
       if (typeof loadCart === 'function') await loadCart();
     } catch (error) {
-      console.error('Failed to add to cart: ', error);
+      console.error('Failed to delete the cart: ', error);
     }
   }
   
@@ -93,7 +96,18 @@ function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelec
   );
 }
 
-function PaymentSummary({paymentSummary}){
+function PaymentSummary({paymentSummary, loadCart, cart}){
+  const navigate = useNavigate();
+
+  async function createOrder() {
+    try {
+      await axios.post(`/api/orders`);
+      if(typeof loadCart === 'function') await loadCart();
+      navigate('/Orders');
+    } catch (error) {
+      console.error('Failed to place an order: ', error);
+    }
+  }
 
   return(
     <div className='border border-[rgb(222,222,222)] max-[1024px]:row-start-1 max-[1024px]:mb-3 rounded-sm p-5'>
@@ -126,7 +140,10 @@ function PaymentSummary({paymentSummary}){
             <div className="text-right">{FormatCurrency(paymentSummary.totalCostCents)}</div>
           </div>
 
-          <button className="w-full text-[15px] p-1.75 mt-2 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
+          <button 
+          onClick={createOrder} 
+          disabled={!cart && cart.length === 0 }
+          className={`${!cart || cart.length === 0 ? `opacity-[0.5] cursor-not-allowed w-full text-[15px] p-1.75 mt-2 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)]` : 'w-full text-[15px] p-1.75 mt-2 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]'}`}>
             Place your order
           </button>
         </>
@@ -161,11 +178,20 @@ export function Cart({ cart, loadCart }) {
   return (
     <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
       <div className="order-summary">
-        {cart.map((item) => (
-          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={loadCart}/>
-        ))}
+        {cart && cart.length > 0 ? (
+          cart.map((item) => (
+            <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={loadCart}/>
+          ))
+        ):(
+          <div className="felx flex-col gap-7 text-[18px] ">
+            <p className="mb-3">Your cart is currently empty.</p>
+            <NavLink to={"/"} className="w-full text-[15px] font-semibold py-2 px-3.5 mt-7 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
+              View products
+            </NavLink>
+          </div>
+        )}
       </div>
-        <PaymentSummary paymentSummary={paymentSummary} />
+        <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} cart={cart}/>
     </div>
   );
 }
