@@ -5,7 +5,7 @@ import { Products } from '../components/Product';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-export function Home({cart, products}){
+export function Home({cart, products, loadCart}){
 
 	return (
 		<>
@@ -16,7 +16,7 @@ export function Home({cart, products}){
 			<main className='mt-18'>
 				<section className='w-full'>
 					<div className='max-w-7xl mx-auto px-4 md:px-6 lg:px-8'>
-						<Products products={products}/>
+						<Products products={products} loadCart={loadCart}/>
 					</div>
 				</section>
 			</main>

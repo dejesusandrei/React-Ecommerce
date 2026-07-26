@@ -2,7 +2,7 @@ import '../../index.css'
 import { CheckoutHeader } from './CheckoutHeader'
 import { Cart } from '../../components/Cart';
 
-export function Checkout({cart}){
+export function Checkout({cart, loadCart}){
 	return(
 		<>
 			<title>Checkout</title>
@@ -13,7 +13,7 @@ export function Checkout({cart}){
 				<section className='w-full'>
 					<div className='max-w-125 lg:max-w-7xl  mx-auto font-roboto px-4 md:px-6 lg:px-8'>
 						<div className='font-bold text-[22px] mb-5'>Review your order</div>
-						<Cart cart={cart}/>
+						<Cart cart={cart} loadCart={loadCart}/>
 					</div>
 				</section>
 			</main>

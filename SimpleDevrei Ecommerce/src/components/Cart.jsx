@@ -3,10 +3,20 @@ import { useState, useEffect } from 'react'
 import { FormatDate } from "../utils/day"
 import axios from 'axios'
 
-function OrderSummary({ item, deliveryOptions }) {
+function OrderSummary({ item, deliveryOptions, loadCart}) {
   const { productId, quantity, product, deliveryOptionId } = item;
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
   const selectedOption = deliveryOptions.find(opt => opt.id === selectedOptionId) || deliveryOptions[0];
+
+  // async function deleteCart(productId){
+	// 	try {
+	// 		await axios.delete('/api/cart-items', product);
+
+	// 		loadCart();
+	// 	} catch (error) {
+	// 		console.error('Failed to add to cart: ', error);
+	// 	}
+	// }
 
   return (
     <div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
@@ -29,7 +39,7 @@ function OrderSummary({ item, deliveryOptions }) {
             <span className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Update
             </span>
-            <span className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+            <span  className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Delete
             </span>
           </div>
@@ -116,7 +126,7 @@ function PaymentSummary({paymentSummary}){
   );
 }
 
-export function Cart({ cart }) {
+export function Cart({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 

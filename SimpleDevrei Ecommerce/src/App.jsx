@@ -11,32 +11,33 @@ function App(){
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
-	useEffect(() =>{
-		async function loadProduct(){
-			try {
-				// Promise All: sabay irequest ng browser anf two API sa backend
-				const [resProduct, resCartItem] = await Promise.all(
-					[
-						axios.get('/api/products'),
-						axios.get('/api/cart-items?expand=product')
-					]
-				);
-				setProducts(resProduct.data);
-				setCart(resCartItem.data);
-			} catch (error) {
-				console.error('Failed to update the products: ', error);
-			}
+	async function loadCart(){
+		try {
+			// Promise All: sabay irequest ng browser anf two API sa backend
+			const [resProduct, resCartItem] = await Promise.all(
+				[
+					axios.get('/api/products'),
+					axios.get('/api/cart-items?expand=product')
+				]
+			);
+			setProducts(resProduct.data);
+			setCart(resCartItem.data);
+		} catch (error) {
+			console.error('Failed to update the products: ', error);
 		}
-		loadProduct();
+	}
+
+	useEffect(() =>{
+		loadCart();
 	}, []);
 
   return(
 		<Routes>
-			<Route index element={<Home cart={cart} products={products}/>}/>
-			<Route path='Checkout' element={<Checkout cart={cart}/>}/>
-			<Route path='Orders' element={<Orders cart={cart}/>}/>
-			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart}/>}/>
-			<Route path='*' element={<NotFound cart={cart}/>}/>
+			<Route index element={<Home cart={cart} products={products} loadCart={loadCart}/>}/>
+			<Route path='Checkout' element={<Checkout cart={cart}/>} loadCart={loadCart}/>
+			<Route path='Orders' element={<Orders cart={cart}/>} loadCart={loadCart}/>
+			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart}/>} loadCart={loadCart}/>
+			<Route path='*' element={<NotFound cart={cart}/>} loadCart={loadCart}/>
 		</Routes> 
   );
 }
