@@ -45,41 +45,53 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
           </div>
         </div>
 
-        <DeliveryOptions deliveryOptions={deliveryOptions} productId={productId} selectedOptionId={selectedOptionId} setSelectedOptionId={setSelectedOptionId}/>
+        <DeliveryOptions deliveryOptions={deliveryOptions} productId={productId} selectedOptionId={selectedOptionId} setSelectedOptionId={setSelectedOptionId} loadCart={loadCart}/>
       </div>
     </div>
   );
 }
 
-function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelectedOptionId}){
+function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelectedOptionId, loadCart}){
+
+  async function updateDeliveryOption(optionId){
+    try {
+      setSelectedOptionId(optionId);
+
+      await axios.put(`/api/cart-items/${productId}`, {deliveryOptionId: optionId}); 
+      if (typeof loadCart === 'function') await loadCart();
+    } catch (error) {
+      console.error('Failed to update the delivery: ', error);
+    }
+  }
+
   return(
-    <div className='delivery-options max-[1024px]:col-[1/span_2]'>
-          <div className='font-bold mb-3'>Choose a delivery option:</div>
+    <div  className='delivery-options max-[1024px]:col-[1/span_2]'>
+      <div className='font-bold mb-3'>Choose a delivery option:</div>
 
-          {deliveryOptions.map(({ id: optionId, priceCents, estimatedDeliveryTimeMs }) => {
-            const priceString = priceCents > 0 ? `${FormatCurrency(priceCents)} - Shipping` : 'FREE Shipping';
+      {deliveryOptions.map(({ id: optionId, priceCents, estimatedDeliveryTimeMs }) => {
+        const priceString = priceCents > 0 ? `${FormatCurrency(priceCents)} - Shipping` : 'FREE Shipping';
 
-            return (
-              <div className='radio-btns grid grid-cols-[26px_1fr] mb-3 cursor-pointer' key={optionId}>
-                <input 
-                  className='mt-0.5 mr-1.5 cursor-pointer' 
-                  type="radio" 
-                  name={`delivery-option-${productId}`} 
-                  checked={optionId === selectedOptionId}
-                  onChange={() => setSelectedOptionId(optionId)} // Updates state on click
-                />
-                <div>
-                  <div className="font-medium mb-1">
-                    {FormatDate(estimatedDeliveryTimeMs)}
-                  </div>
-                  <div className="text-[rgb(120,120,120)] text-[15px]">
-                    {priceString}
-                  </div>
-                </div>
+        return (
+          <div onClick={() => updateDeliveryOption(optionId)} className='hover-option radio-btns grid grid-cols-[26px_1fr] mb-3 cursor-pointer' key={optionId}>
+            <input 
+              className='radio mt-0.5 mr-1.5 cursor-pointer' 
+              type="radio" 
+              name={`delivery-option-${productId}`} 
+              checked={optionId === selectedOptionId}
+              onChange={() => updateDeliveryOption(optionId)} // Updates state on click
+            />
+            <div>
+              <div className="date font-medium mb-1">
+                {FormatDate(estimatedDeliveryTimeMs)}
               </div>
-            );
-          })}
-        </div>
+              <div className="shipping text-[rgb(120,120,120)] text-[15px]">
+                {priceString}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -130,27 +142,33 @@ export function Cart({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 
-  useEffect(() => {
-    async function loadDeliveryOptions() {
-      try {
-        const [resDeliveryOption, resPaymentSummary] = await Promise.all([
-          axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
-          axios.get('/api/payment-summary')
-        ]); 
-        setDeliveryOptions(resDeliveryOption.data);
-        setPaymentSummary(resPaymentSummary.data);
-      } catch (error) {
-        console.error('Failed to update the delivery options: ', error);
-      }
+  async function loadData() {
+    try {
+      const [resDeliveryOption, resPaymentSummary] = await Promise.all([
+        axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
+        axios.get('/api/payment-summary')
+      ]); 
+      setDeliveryOptions(resDeliveryOption.data);
+      setPaymentSummary(resPaymentSummary.data);
+    } catch (error) {
+      console.error('Failed to update the delivery options: ', error);
     }
-    loadDeliveryOptions();
-  }, []);
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [cart]);
+
+  async function handleReload(){
+    if (typeof loadCart === 'function') await loadCart();
+    await loadData();
+  }
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
       <div className="order-summary">
         {cart.map((item) => (
-          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} />
+          <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={handleReload}/>
         ))}
       </div>
         <PaymentSummary paymentSummary={paymentSummary} />

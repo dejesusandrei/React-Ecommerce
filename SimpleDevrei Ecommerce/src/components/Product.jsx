@@ -2,7 +2,6 @@ import {FormatCurrency}  from '../utils/money'
 import { useState } from 'react'
 import axios from 'axios'
 
-
 function ProductCard({product, loadCart}){
 	const { id, image, name, priceCents, rating } = product;
 	const [quantity, setQuantity] = useState(1);
@@ -11,10 +10,10 @@ function ProductCard({product, loadCart}){
 		try {
 			const cartItem ={
 				productId: id,
-				quantity: quantity
+				quantity
 			};
 			await axios.post('/api/cart-items', cartItem);
-			loadCart();
+			if (typeof loadCart === 'function') await loadCart();
 		} catch (error) {
 			console.error('Failed to add to cart: ', error);
 		}
