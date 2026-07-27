@@ -5,6 +5,7 @@ import axios from 'axios'
 function ProductCard({product, loadCart}){
 	const { id, image, name, priceCents, rating } = product;
 	const [quantity, setQuantity] = useState(1);
+	const [added, setAdded] = useState(false);
 
 	async function addToCart(){
 		try {
@@ -12,8 +13,13 @@ function ProductCard({product, loadCart}){
 				productId: id,
 				quantity
 			};
+			setAdded(true);
 			await axios.post('/api/cart-items', cartItem);
 			if (typeof loadCart === 'function') await loadCart();
+
+			setTimeout(() =>{
+				setAdded(false);
+			}, 2000);
 		} catch (error) {
 			console.error('Failed to add to cart: ', error);
 		}
@@ -52,7 +58,7 @@ function ProductCard({product, loadCart}){
 
 			<div className="grow"></div>
 
-			<div className=" text-[rgb(25,135,84)] text-[16px] flex items-center mb-3 opacity-0">
+			<div className={`text-[rgb(25,135,84)] text-[16px] flex items-center mb-3 ${added ? 'opacity-100' : 'opacity-0'}`}>
 				<img className="h-5 mr-2" src="../../images/icons/checkmark.png" />
 				Added
 			</div>

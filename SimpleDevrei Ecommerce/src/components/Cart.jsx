@@ -1,5 +1,5 @@
 import { FormatCurrency } from "../utils/money"
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from "react-router-dom"
 import { FormatDate } from "../utils/day"
 import { NavLink } from 'react-router-dom'
@@ -19,6 +19,48 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
       console.error('Failed to delete the cart: ', error);
     }
   }
+
+  // FOR UPDATING THE QUANTITY
+
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [newQuantity, setNewQuantity] = useState(quantity);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (isUpdated && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select(); // Select existing text for quick editing
+    }
+  }, [isUpdated]);
+
+  function openUpdateQuantity(){
+    setNewQuantity(quantity);
+    setIsUpdated(true);
+  }
+
+  async function updateQuantity(){
+    const parsedQty = Number(newQuantity);
+
+    // Validation: Don't allow invalid numbers or numbers less than 1
+    if (isNaN(parsedQty) || parsedQty < 1) {
+      alert("Please enter a valid quantity of at least 1.");
+      setNewQuantity(quantity);
+      return;
+    }
+    // If no change was made, just close the input mode
+    if (parsedQty === quantity) {
+      setIsUpdated(false);
+      return;
+    }
+
+    try {
+      await axios.put(`/api/cart-items/${productId}`, { quantity: parsedQty});
+      if (typeof loadCart === 'function') await loadCart();
+      setIsUpdated(false);
+    } catch (error) {
+      console.error('Failed to update the cart: ', error);
+    }
+  }
   
   return (
     <div className='border border-[rgb(222,222,222)] rounded-sm p-5 mb-3'>
@@ -34,13 +76,28 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
         <div className='cart-item-details'>
           <div className="font-bold mb-2">{product.name}</div>
           <div className="font-bold mb-2">{FormatCurrency(product.priceCents)}</div>
-          <div className="product-quantity">
+          <div className="product-quantity flex">
             <span>
-              Quantity: <span className="quantity-label">{quantity}</span>
+              Quantity: {isUpdated ? (<input type="text" 
+              ref={inputRef}
+              value={newQuantity}
+              onKeyDown={(event) => {
+                if(event.key === 'Enter') updateQuantity(); 
+                if(event.key === 'Escape'){
+                  setNewQuantity(quantity);
+                  setIsUpdated(false);
+                }
+              }} 
+              onChange={(event) => setNewQuantity(event.target.value)} className="border rounded-[5px] w-12.5 px-2 outline-0"/>) : (<span className="quantity-label">{quantity}</span>)}
             </span>
-            <span className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+            {isUpdated ? (<span onClick={updateQuantity} className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
+              Save
+            </span>) :(
+              <span onClick={openUpdateQuantity} className="update-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Update
             </span>
+            )}
+        
             <span onClick={deleteCart} className="delete-quantity-link ml-1.5 text-[rgb(25,135,84)] hover:opacity-[0.75] cursor-pointer">
               Delete
             </span>
