@@ -1,5 +1,5 @@
 import { FormatCurrency } from "../utils/money"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from "react-router-dom"
 import { FormatDate } from "../utils/day"
 import { NavLink } from 'react-router-dom'
@@ -10,7 +10,7 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
   const { productId, quantity, product, deliveryOptionId } = item;
   const [selectedOptionId, setSelectedOptionId] = useState(deliveryOptionId || '1');
   const selectedOption = deliveryOptions.find(opt => opt.id === selectedOptionId) || deliveryOptions[0];
-
+  
   async function deleteCart(){
     try {
       await axios.delete(`/api/cart-items/${productId}`);
@@ -157,7 +157,7 @@ export function Cart({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const [resDeliveryOption, resPaymentSummary] = await Promise.all([
         axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
@@ -166,14 +166,13 @@ export function Cart({ cart, loadCart }) {
       setDeliveryOptions(resDeliveryOption.data);
       setPaymentSummary(resPaymentSummary.data);
     } catch (error) {
-      console.error('Failed to update the delivery options: ', error);
+      console.error('Failed to update the delivery options or summary: ', error);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadData();
-    if (typeof loadCart === 'function') loadCart();
-  }, [cart]);
+  }, [cart, loadData]);
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-[1fr_350px] items-start gap-3'>
@@ -183,9 +182,9 @@ export function Cart({ cart, loadCart }) {
             <OrderSummary key={item.productId} item={item} deliveryOptions={deliveryOptions} loadCart={loadCart}/>
           ))
         ):(
-          <div className="felx flex-col gap-7 text-[18px] ">
+          <div className="block text-[18px] ">
             <p className="mb-3">Your cart is currently empty.</p>
-            <NavLink to={"/"} className="w-full text-[15px] font-semibold py-2 px-3.5 mt-7 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
+            <NavLink to={"/"} className="q-full text-[15px] font-semibold py-2 px-3.5 mt-7 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
               View products
             </NavLink>
           </div>
