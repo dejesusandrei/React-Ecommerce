@@ -55,12 +55,17 @@ function OrdersGrid({order}){
 							</button>
 						</div>
 
-						<div className="product-actions items-start">
+						<div className="product-actions flex flex-col gap-y-3.5">
 							<Link to={`/Tracking/${order.id}/${productId}`}>
 								<button className="track-package-button button-secondary w-full text-[15px] border border-[rgb(221,221,221)] rounded-[5px] p-2 cursor-pointer hover:bg-[rgba(221,221,221,0.26)]">
 									Track package
 								</button>
 							</Link>
+							{/* <Link to={`/Tracking/${order.id}/${productId}`}>
+								<button className="track-package-button bg-red-600 text-white button-secondary w-full text-[15px] border border-red-700 rounded-[5px] p-2 cursor-pointer hover:opacity-[0.75]">
+									Cancel Package
+								</button>
+							</Link> */}
 						</div>
 					</Fragment>
 				);
@@ -88,15 +93,15 @@ export function Order(){
 	const [orders, setOrders] = useState([]);
 
 	useEffect(() =>{
-			async function loadOrders() {
-				try {
-					const res = await axios.get('/api/orders?expand=products');
-					setOrders(res.data);
-				} catch (error) {
-					console.error('Failed to update the orders: ', error);
-				}
+		async function loadOrders() {
+			try {
+				const res = await axios.get('/api/orders?expand=products');
+				setOrders(res.data);
+			} catch (error) {
+				console.error('Failed to update the orders: ', error);
 			}
-			loadOrders();
+		}
+		loadOrders();
 	}, []);
 
 	return(
