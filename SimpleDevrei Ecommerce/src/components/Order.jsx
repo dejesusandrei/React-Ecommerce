@@ -28,11 +28,25 @@ function OrderHeader({order}){
 	);
 }
 
-function OrdersGrid({order}){
+function OrdersGrid({order, loadCart}){
 	return(
 		<div className='order-details-grid px-10 py-6.5 border-t-0 border-l border border-[rgb(222,222,222)] rounded-b-[5px] grid grid-cols-[110px_1fr_220px] gap-9 gap-y-14.5 items-center'>
 			{order.products.map((orderProduct) =>{
 				const { productId,  quantity, estimatedDeliveryTimeMs, product } = orderProduct;
+
+				async function addToCart(){
+					try {
+						const cartItem ={
+							productId,
+							quantity: 1
+						};
+						await axios.post('/api/cart-items', cartItem);
+						if (typeof loadCart === 'function') await loadCart();
+					} catch (error) {
+						console.error('Failed to add to cart: ', error);
+					}
+				};
+
 				return(
 					<Fragment key={productId}>
 						<div className="product-image-container text-center">
@@ -49,7 +63,9 @@ function OrdersGrid({order}){
 							<div className="product-quantity mb-2">
 								Quantity: {quantity}
 							</div>
-							<button className="buy-again-button button-primary flex items-center justify-center  h-9 w-35 text-[14px] p-1 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)] ">
+							<button 
+							onClick={addToCart}
+							className="buy-again-button button-primary flex items-center justify-center  h-9 w-35 text-[14px] p-1 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)] ">
 								<img className="buy-again-icon w-5 mr-2.5" src="images/icons/buy-again.png" />
 								<span className="buy-again-message">Add to Cart</span>
 							</button>
@@ -74,14 +90,14 @@ function OrdersGrid({order}){
 	);
 }
 
-function OrderList({orders}){
+function OrderList({orders, loadCart}){
 	return(
 		<>
 			{orders.map((order) =>{
 				return(
 					<div className='order-container' key={order.id}>
 						<OrderHeader order={order}/>
-						<OrdersGrid order={order}/>
+						<OrdersGrid order={order} loadCart={loadCart}/>
 					</div>
 				);
 			})}
@@ -89,7 +105,7 @@ function OrderList({orders}){
 	);
 }
 
-export function Order(){
+export function Order({loadCart}){
 	const [orders, setOrders] = useState([]);
 
 	useEffect(() =>{
@@ -106,7 +122,7 @@ export function Order(){
 
 	return(
 		<div className='grid grid-cols-1 gap-y-12.5'>
-			<OrderList orders={orders} />
+			<OrderList orders={orders} loadCart={loadCart}/>
 		</div>
 	);
 }
