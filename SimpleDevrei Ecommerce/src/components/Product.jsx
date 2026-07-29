@@ -63,7 +63,8 @@ export function ProductCard({product, loadCart}){
 				Added
 			</div>
 
-			<button onClick={addToCart} className="w-full text-[15px] p-1 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
+			<button data-testid="add-to-cart-button"
+			onClick={addToCart} className="w-full text-[15px] p-1 rounded-[5px] bg-[rgb(25,135,84)] text-white border-transparent border shadow shadow-[rgba(220,220,220,0.5)] cursor-pointer hover:bg-[rgba(25,135,84,0.75)]">
 				Add to Cart
 			</button>
 		</div>
