@@ -41,7 +41,9 @@ export function ProductCard({product, loadCart}){
 			<div className="font-semibold mb-3">{FormatCurrency(priceCents)}</div>
 
 			<div className="mb-4">
-				<select value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}
+				<select 
+				data-testid="product-quantity-selector"
+				value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}
 				className='text-[rgb(33,33,33)] bg-[rgb(255,255,255)] rounded-[5px] shadow-[rgba(220,220,220,0.5)] px-1.5 py-1 outline-[#adadad] cursor-pointer focus:outline-[rgb(25,135,84)]  outline-2'>
 					<option value="1">1</option>
 					<option value="2">2</option>

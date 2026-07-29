@@ -21,4 +21,15 @@ describe('FormatCurrency Function', () => {
     expect(FormatCurrency(1099.5)).toBe('$11.00');
   });
 
+  it('0 cents to $0.00', () => {
+    // Dahil may Math.round() ka, ang 1099.5 cents ay magiging 1100 cents
+    expect(FormatCurrency(0)).toBe('$0.00');
+  });
+
+  it('-999 and -100 to -$9.99 and -$1.00', () => {
+    // Dahil may Math.round() ka, ang 1099.5 cents ay magiging 1100 cents
+    expect(FormatCurrency(-999)).toBe('-$9.99');
+    expect(FormatCurrency(-100)).toBe('-$1.00');
+  });
+
 });

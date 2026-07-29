@@ -153,7 +153,7 @@ function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelec
   );
 }
 
-function PaymentSummary({paymentSummary, loadCart, cart}){
+export function PaymentSummary({paymentSummary, loadCart, cart}){
   const navigate = useNavigate();
 
   async function createOrder() {
@@ -172,27 +172,27 @@ function PaymentSummary({paymentSummary, loadCart, cart}){
       
       {paymentSummary && (
         <>
-          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3" data-testid="payment-summary-product-cost">
             <div>Items ({paymentSummary.totalItems}):</div>
             <div className="text-right">{FormatCurrency(paymentSummary.productCostCents)}</div>
           </div>
 
-          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3" data-testid="payment-summary-shipping-cost">
             <div>Shipping &amp; handling:</div>
             <div className="text-right">{FormatCurrency(paymentSummary.shippingCostCents)}</div>
           </div>
 
-          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3" data-testid="payment-summary-total-before-tax">
             <div>Total before tax:</div>
             <div className="text-right border-t border-t-[rgb(222,222,222)]">{FormatCurrency(paymentSummary.totalCostBeforeTaxCents)}</div>
           </div>
 
-          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3">
+          <div className="grid grid-cols-[1fr_auto] text-[15px] mb-3" data-testid="payment-summary-tax">
             <div>Estimated tax (10%):</div>
             <div className="text-right">{FormatCurrency(paymentSummary.taxCents)}</div>
           </div>
 
-          <div className="grid grid-cols-[1fr_auto] text-[rgb(25,135,84)] font-bold text-[18px] pt-4.5 mb-3 border-t border-t-[rgb(222,222,222)]">
+          <div className="grid grid-cols-[1fr_auto] text-[rgb(25,135,84)] font-bold text-[18px] pt-4.5 mb-3 border-t border-t-[rgb(222,222,222)]" data-testid="payment-summary-total">
             <div>Order total:</div>
             <div className="text-right">{FormatCurrency(paymentSummary.totalCostCents)}</div>
           </div>
