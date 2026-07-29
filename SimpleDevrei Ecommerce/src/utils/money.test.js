@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { FormatCurrency } from './money'
 
+// To run the Test: npx vitest
+
 describe('FormatCurrency Function', () => {
   
   it('Formats 1090 cents to $10.90', () => {
