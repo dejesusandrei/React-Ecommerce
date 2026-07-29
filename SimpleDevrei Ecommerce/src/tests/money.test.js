@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { FormatCurrency } from './money'
+import { FormatCurrency } from '../utils/money'
 
 // To run the Test: npx vitest
 
