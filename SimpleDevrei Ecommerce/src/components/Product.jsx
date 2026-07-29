@@ -26,7 +26,7 @@ export function ProductCard({product, loadCart}){
 	}
 
 	return (
-		<div key={id} className="flex flex-col px-6.25 pt-8 pb-6.25 sm:border-r border-b border-[rgb(240,240,240)]">
+		<div key={id} data-testid="product-container" className="flex flex-col px-6.25 pt-8 pb-6.25 sm:border-r border-b border-[rgb(240,240,240)]">
 			<div className="flex items-center justify-center h-45 mb-5">
 				<img className="max-w-full max-h-full rounded-[5px]" src={image} data-testid="product-image" />
 			</div>
