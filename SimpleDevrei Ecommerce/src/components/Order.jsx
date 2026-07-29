@@ -1,7 +1,7 @@
 import { FormatCurrency } from "../utils/money"
 import { useState, useEffect, Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { FormatDay } from "../utils/day"
+import { FormatDay } from "../utils/date"
 import axios from 'axios'
 
 function OrderHeader({order}){

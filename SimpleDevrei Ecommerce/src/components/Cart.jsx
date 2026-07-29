@@ -1,7 +1,7 @@
 import { FormatCurrency } from "../utils/money"
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from "react-router-dom"
-import { FormatDate } from "../utils/day"
+import { FormatDate } from "../utils/date"
 import { NavLink } from 'react-router-dom'
 
 import axios from 'axios'
