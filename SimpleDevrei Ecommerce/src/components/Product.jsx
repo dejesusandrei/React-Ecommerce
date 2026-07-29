@@ -2,7 +2,7 @@ import {FormatCurrency}  from '../utils/money'
 import { useState } from 'react'
 import axios from 'axios'
 
-function ProductCard({product, loadCart}){
+export function ProductCard({product, loadCart}){
 	const { id, image, name, priceCents, rating } = product;
 	const [quantity, setQuantity] = useState(1);
 	const [added, setAdded] = useState(false);
@@ -28,13 +28,13 @@ function ProductCard({product, loadCart}){
 	return (
 		<div key={id} className="flex flex-col px-6.25 pt-8 pb-6.25 sm:border-r border-b border-[rgb(240,240,240)]">
 			<div className="flex items-center justify-center h-45 mb-5">
-				<img className="max-w-full max-h-full rounded-[5px]" src={image} />
+				<img className="max-w-full max-h-full rounded-[5px]" src={image} data-testid="product-image" />
 			</div>
 
 			<div className="h-10 mb-3">{name}</div>
 
 			<div className="flex items-center mb-2.5">
-				<img className="w-25 mr-1.5" src={`/images/ratings/rating-${rating.stars * 10}.png`} alt={`${rating.stars} stars`}/>
+				<img className="w-25 mr-1.5" src={`/images/ratings/rating-${rating.stars * 10}.png`} alt={`${rating.stars} stars`} data-testid="product-image-ratings" />
 				<div className="text-[rgb(25,135,84)] font-medium cursor-pointer mt-1">{rating.count}</div>
 			</div>
 
