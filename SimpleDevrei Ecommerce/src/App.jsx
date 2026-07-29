@@ -9,19 +9,12 @@ import { NotFound } from "./pages/NotFound";
 
 
 function App(){
-  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
 	async function loadCart(){
 		try {
 			// Promise All: sabay irequest ng browser anf two API sa backend
-			const [resProduct, resCartItem] = await Promise.all(
-				[
-					axios.get('/api/products'),
-					axios.get('/api/cart-items?expand=product')
-				]
-			);
-			setProducts(resProduct.data);
+			const resCartItem = await axios.get('/api/cart-items?expand=product')
 			setCart(resCartItem.data);
 		} catch (error) {
 			console.error('Failed to update the products: ', error);
@@ -34,7 +27,7 @@ function App(){
 
   return(
 		<Routes>
-			<Route index element={<Home cart={cart} products={products} loadCart={loadCart}/>}/>
+			<Route index element={<Home cart={cart} loadCart={loadCart}/>}/>
 			<Route path='Checkout' element={<Checkout cart={cart} loadCart={loadCart}/>}/>
 			<Route path='Orders' element={<Orders cart={cart} loadCart={loadCart}/>}/>
 			<Route path="/Tracking/:orderId/:productId" element={<Tracking cart={cart} loadCart={loadCart}/>}/>
