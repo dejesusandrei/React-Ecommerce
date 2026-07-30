@@ -20,5 +20,9 @@ A fully functional e-commerce web application built following the SuperSimpleDev
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, HTML5, CSS3, JavaScript (ES6+)
-- **Testing:** Vitest
+- **Languages:** HTML5, CSS3, JavaScript (ES6+)
+- **Framework:** [React](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Testing:** [Vitest](https://vitest.dev/)
+- **Deployment:** [Vercel](https://vercel.com/)
