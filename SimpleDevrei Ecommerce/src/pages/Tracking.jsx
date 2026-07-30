@@ -14,7 +14,7 @@ export function Tracking({cart}){
   useEffect(() =>{
     async function loadOrder(){
       try {
-        const res = await axios.get(`/api/orders/${orderId}?expand=products`);
+        const res = await axios.get(`http://localhost:3000/api/orders/${orderId}?expand=products`);
         setOrder(res.data);
       } catch (error) {
         console.error('Failed to get the orders: ', error);

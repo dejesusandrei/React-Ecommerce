@@ -18,7 +18,7 @@ export function Home({cart, loadCart}){
 		async function getHomeData() {
 			try {
 				setIsLoading(true);
-				const urlPath = search ? `/api/products?search=${search}` : '/api/products';
+				const urlPath = search ? `http://localhost:3000/api/products?search=${search}` : 'http://localhost:3000/api/products';
 				const res = await axios.get(urlPath);
 				setProducts(res.data);
 				setIsLoading(false);

@@ -43,7 +43,7 @@ function OrdersGrid({order, loadCart}){
 							productId,
 							quantity: 1
 						};
-						await axios.post('/api/cart-items', cartItem);
+						await axios.post('http://localhost:3000/api/cart-items', cartItem);
 						if (typeof loadCart === 'function') await loadCart();
 
 						setTimeout(() =>{
@@ -128,7 +128,7 @@ export function Order({loadCart}){
 	useEffect(() =>{
 		async function loadOrders() {
 			try {
-				const res = await axios.get('/api/orders?expand=products');
+				const res = await axios.get('http://localhost:3000/api/orders?expand=products');
 				setOrders(res.data);
 			} catch (error) {
 				console.error('Failed to update the orders: ', error);

@@ -13,7 +13,7 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
   
   async function deleteCart(){
     try {
-      await axios.delete(`/api/cart-items/${productId}`);
+      await axios.delete(`http://localhost:3000/api/cart-items/${productId}`);
       if (typeof loadCart === 'function') await loadCart();
     } catch (error) {
       console.error('Failed to delete the cart: ', error);
@@ -54,7 +54,7 @@ function OrderSummary({ item, deliveryOptions, loadCart}) {
     }
 
     try {
-      await axios.put(`/api/cart-items/${productId}`, { quantity: parsedQty});
+      await axios.put(`http://localhost:3000/api/cart-items/${productId}`, { quantity: parsedQty});
       if (typeof loadCart === 'function') await loadCart();
       setIsUpdated(false);
     } catch (error) {
@@ -115,7 +115,7 @@ function DeliveryOptions({deliveryOptions, productId, selectedOptionId, setSelec
     try {
       setSelectedOptionId(optionId);
 
-      await axios.put(`/api/cart-items/${productId}`, {deliveryOptionId: optionId}); 
+      await axios.put(`http://localhost:3000/api/cart-items/${productId}`, {deliveryOptionId: optionId}); 
       if (typeof loadCart === 'function') await loadCart();
     } catch (error) {
       console.error('Failed to update the delivery: ', error);
@@ -158,7 +158,7 @@ export function PaymentSummary({paymentSummary, loadCart, cart}){
 
   async function createOrder() {
     try {
-      await axios.post(`/api/orders`);
+      await axios.post(`http://localhost:3000/api/orders`);
       if(typeof loadCart === 'function') await loadCart();
       navigate('/Orders');
     } catch (error) {
@@ -217,8 +217,8 @@ export function Cart({ cart, loadCart }) {
   const loadData = useCallback(async () => {
     try {
       const [resDeliveryOption, resPaymentSummary] = await Promise.all([
-        axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
-        axios.get('/api/payment-summary')
+        axios.get('http://localhost:3000/api/delivery-options?expand=estimatedDeliveryTime'),
+        axios.get('http://localhost:3000/api/payment-summary')
       ]); 
       setDeliveryOptions(resDeliveryOption.data);
       setPaymentSummary(resPaymentSummary.data);

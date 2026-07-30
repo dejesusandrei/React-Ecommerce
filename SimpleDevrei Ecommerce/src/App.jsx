@@ -14,7 +14,7 @@ function App(){
 	async function loadCart(){
 		try {
 			// Promise All: sabay irequest ng browser anf two API sa backend
-			const resCartItem = await axios.get('/api/cart-items?expand=product')
+			const resCartItem = await axios.get('http://localhost:3000/api/cart-items?expand=product')
 			setCart(resCartItem.data);
 		} catch (error) {
 			console.error('Failed to update the products: ', error);

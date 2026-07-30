@@ -14,7 +14,7 @@ export function ProductCard({product, loadCart}){
 				quantity
 			};
 			setAdded(true);
-			await axios.post('/api/cart-items', cartItem);
+			await axios.post('http://localhost:3000/api/cart-items', cartItem);
 			if (typeof loadCart === 'function') await loadCart();
 
 			setTimeout(() =>{
