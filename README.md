@@ -2,9 +2,6 @@
 
 A fully functional e-commerce web application built following the SuperSimpleDev tutorial, customized as **SimpleDevrei Ecommerce**. This project simulates a real-world online shopping experience, including interactive product catalogs, cart management, tracking, and order handling.
 
-## 🚀 Live Demo
-
-- **Hosted Site:** [https://simpledevrei-ecommerce.vercel.app](https://simpledevrei-ecommerce.vercel.app)
 
 ---
 
